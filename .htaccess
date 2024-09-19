@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+
+   RewriteEngine On
+
+   # RewriteCond %{REQUEST_FILENAME}  -f [OR]
+   # RewriteCond %{REQUEST_FILENAME} !-f
+   # RewriteRule ^(.*)$ /public/index.php [L,QSA]
+
+   RewriteCond %{HTTP:Authorization} ^(.*)
+   RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+   RewriteCond $1 !^(index\.php|public|assets|robots\.txt)
+   RewriteRule ^(.*)$ /public/index.php/$1 [L]
+</IfModule>
